@@ -1,0 +1,19 @@
+# secrets and local state
+.env*
+**/.env.local
+backend/var
+backend/.venv
+backend/.git
+**/__pycache__
+**/.pytest_cache
+# build inputs not needed on Vercel
+frontend/node_modules
+frontend/dist
+data/dl_fts
+data/raw
+data/norms
+data/ref
+data/samples
+*.zip
+docs
+deploy

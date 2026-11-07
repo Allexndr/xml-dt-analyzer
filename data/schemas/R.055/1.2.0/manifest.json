@@ -1,0 +1,35 @@
+{
+ "code": "R.055",
+ "version": "1.2.0",
+ "namespace": "urn:EEC:R:055:GoodsDeclaration:v1.2.0",
+ "root_element": "GoodsDeclaration",
+ "entry": "EEC_R_055_GoodsDeclaration_v1.2.0.xsd",
+ "files": [
+  {
+   "file": "EEC_R_055_GoodsDeclaration_v1.2.0.xsd",
+   "sha256": "baa31d4b004beee1135aa8b961e9543f76f9c32365cf52defd7036acf283c6a6"
+  },
+  {
+   "file": "EEC_M_SimpleDataObjects_v0.4.16.xsd",
+   "sha256": "4292ef4d20060143406a725bbe9d9412e40a4ce56a43969288d4cca02c648334"
+  },
+  {
+   "file": "EEC_M_BaseDataTypes_v0.4.16.xsd",
+   "sha256": "1e5a700f6d40dfecfaf44b8d628968ab47fe285d5503e0006ec811af1316d9b9"
+  },
+  {
+   "file": "EEC_M_ComplexDataObjects_v0.4.16.xsd",
+   "sha256": "48aaa60111d839b4607834644499e95411e717ec0576b8effae2df844581de2e"
+  },
+  {
+   "file": "EEC_M_CA_SimpleDataObjects_v1.10.4.xsd",
+   "sha256": "5efbd0b6916713e7f88d2058a9e155c111020f92035a22dcf1b8773a81858898"
+  },
+  {
+   "file": "EEC_M_CA_ComplexDataObjects_v1.10.4.xsd",
+   "sha256": "849d5dbef8c59afa91762dff8e29fa650050a82694f7eba2970fa11685d132b7"
+  }
+ ],
+ "source": "FTS external album 5.28.0, clarification of 21.09.2026 (limited.customs.gov.ru)",
+ "retrieved": "2026-11-06"
+}

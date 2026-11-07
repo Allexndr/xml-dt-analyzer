@@ -1,0 +1,91 @@
+# Экспертные правила R.055 v1.2.0, которых нет в виде машинных формулировок в таблице 3,
+# но которые следуют из её примечаний (позиции 18.8, 18.10) и национальных форматов идентификаторов.
+#
+# Статус: размечено ИИ-экспертом (review: ai-expert). Требует подтверждения таможенным экспертом.
+# Источник нормы указывается позицией таблицы 3 Решения № 75; формат и контрольная сумма —
+# общеизвестные национальные правила (БИН/ИИН РК, ИНН РФ, УНП РБ, УНН РА, ИНН КР).
+#
+# Применяется к декларанту и к лицу, ответственному за финансовое урегулирование, — это резиденты
+# государства, в котором подаётся ДТ. Для получателя — только если страна его адреса совпадает
+# с государством проверки (иностранные контрагенты имеют свои форматы).
+
+rules:
+  # ---------- Казахстан ----------
+  - id: E-KZ-TAXPAYER-DECLARANT
+    source: T3-18.8-1
+    scope: /GoodsDeclaration/DeclarantDetails
+    countries: [KZ]
+    then:
+      - matches: [TaxpayerId, "\\d{12}"]
+      - checksum: [TaxpayerId, kz_bin_iin]
+    severity: error
+    note: "В РК в TaxpayerId указывается БИН: 12 цифр с контрольным разрядом."
+  - id: E-KZ-PERSON-DECLARANT
+    source: T3-18.10-2
+    scope: /GoodsDeclaration/DeclarantDetails
+    countries: [KZ]
+    then:
+      - checksum: [PersonId, kz_bin_iin]
+    severity: error
+    note: "В РК в PersonId указывается ИИН (12 цифр с контрольным разрядом) или УИН."
+  - id: E-KZ-TAXPAYER-FINANCIAL
+    source: T3-18.8-1
+    scope: /GoodsDeclaration/GDGoodsShipmentDetails/FinancialSettlementSubjectDetails
+    countries: [KZ]
+    then:
+      - matches: [TaxpayerId, "\\d{12}"]
+      - checksum: [TaxpayerId, kz_bin_iin]
+    severity: error
+  - id: E-KZ-TAXPAYER-CONSIGNEE
+    source: T3-18.8-1
+    scope: /GoodsDeclaration/GDGoodsShipmentDetails/ConsigneeDetails
+    countries: [KZ]
+    when:
+      - eq: [SubjectAddressDetails/UnifiedCountryCode, KZ]
+    then:
+      - matches: [TaxpayerId, "\\d{12}"]
+      - checksum: [TaxpayerId, kz_bin_iin]
+    severity: error
+
+  # ---------- Россия ----------
+  - id: E-RU-TAXPAYER-DECLARANT
+    source: T3-18.8-1
+    scope: /GoodsDeclaration/DeclarantDetails
+    countries: [RU]
+    then:
+      - checksum: [TaxpayerId, ru_inn]
+    severity: error
+    note: "В РФ в TaxpayerId указывается ИНН: 10 цифр (организация) или 12 (физическое лицо) с контрольными разрядами."
+  - id: E-RU-TAXPAYER-FINANCIAL
+    source: T3-18.8-1
+    scope: /GoodsDeclaration/GDGoodsShipmentDetails/FinancialSettlementSubjectDetails
+    countries: [RU]
+    then:
+      - checksum: [TaxpayerId, ru_inn]
+    severity: error
+
+  # ---------- Беларусь, Армения, Кыргызстан (длина) ----------
+  - id: E-BY-TAXPAYER-DECLARANT
+    source: T3-18.8-1
+    scope: /GoodsDeclaration/DeclarantDetails
+    countries: [BY]
+    then:
+      - matches: [TaxpayerId, "\\d{9}"]
+    severity: error
+    note: "В РБ — УНП, 9 цифр."
+  - id: E-AM-TAXPAYER-DECLARANT
+    source: T3-18.8-1
+    scope: /GoodsDeclaration/DeclarantDetails
+    countries: [AM]
+    then:
+      - matches: [TaxpayerId, "\\d{8}"]
+    severity: error
+    note: "В РА — УНН, 8 цифр."
+  - id: E-KG-TAXPAYER-DECLARANT
+    source: T3-18.8-1
+    scope: /GoodsDeclaration/DeclarantDetails
+    countries: [KG]
+    then:
+      - matches: [TaxpayerId, "\\d{14}"]
+    severity: error
+    note: "В КР — ИНН, 14 цифр."

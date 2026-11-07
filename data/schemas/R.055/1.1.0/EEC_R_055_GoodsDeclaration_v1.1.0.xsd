@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           targetNamespace="urn:EEC:R:055:GoodsDeclaration:v1.1.0"
+           xmlns:gdgdc="urn:EEC:R:055:GoodsDeclaration:v1.1.0"
+           xmlns:cacdo="urn:EEC:M:CA:ComplexDataObjects:v1.10.3"
+           xmlns:casdo="urn:EEC:M:CA:SimpleDataObjects:v1.10.3"
+           xmlns:ccdo="urn:EEC:M:ComplexDataObjects:v0.4.16"
+           xmlns:csdo="urn:EEC:M:SimpleDataObjects:v0.4.16"
+           version="1.1.0">
+
+    <xs:import namespace="urn:EEC:M:CA:ComplexDataObjects:v1.10.3" schemaLocation="EEC_M_CA_ComplexDataObjects_v1.10.3.xsd"/>
+    <xs:import namespace="urn:EEC:M:CA:SimpleDataObjects:v1.10.3" schemaLocation="EEC_M_CA_SimpleDataObjects_v1.10.3.xsd"/>
+    <xs:import namespace="urn:EEC:M:ComplexDataObjects:v0.4.16" schemaLocation="EEC_M_ComplexDataObjects_v0.4.16.xsd"/>
+    <xs:import namespace="urn:EEC:M:SimpleDataObjects:v0.4.16" schemaLocation="EEC_M_SimpleDataObjects_v0.4.16.xsd"/>
+    <!-- Декларация на товары и корректировка декларации на товары -->
+
+    <!-- R.055: Декларация на товары и корректировка декларации на товары (Декларация на товары и корректировка декларации на товары) -->
+    <xs:element name="GoodsDeclaration" type="gdgdc:GoodsDeclarationType">
+        <xs:annotation>
+            <xs:documentation>Декларация на товары и корректировка декларации на товары</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <!-- R.055.CDT: Декларация на товары и корректировка декларации на товары (Декларация на товары и корректировка декларации на товары_ Детали. Тип) -->
+    <xs:complexType name="GoodsDeclarationType">
+        <xs:annotation>
+            <xs:documentation>Декларация на товары и корректировка декларации на товары</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element ref="csdo:EDocCode"/>
+            <xs:element ref="csdo:EDocId"/>
+            <xs:element ref="csdo:EDocRefId" minOccurs="0"/>
+            <xs:element ref="csdo:EDocDateTime"/>
+            <xs:element ref="csdo:ObjectOrdinal" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Порядковый номер корректировки декларации на товары</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="cacdo:CustomsDeclarationIdDetails" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Регистрационный номер декларации на товары</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="casdo:DeclarationKindCode">
+                <xs:annotation>
+                    <xs:documentation>Тип декларации</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="casdo:CustomsProcedureCode" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Кодовое обозначение заявляемой таможенной процедуры</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="casdo:DeclarationFeatureCode" minOccurs="0"/>
+            <xs:element ref="casdo:EDocIndicatorCode"/>
+            <xs:element ref="casdo:DocUsageCode" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Кодовое обозначение использования транспортных (перевозочных), коммерческих и (или) иных документов в качестве декларации на товары</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="csdo:PageQuantity" minOccurs="0"/>
+            <xs:element ref="casdo:LoadingListsQuantity" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>количество отгрузочных спецификаций или транспортных (перевозочных), коммерческих и (или) иных документов</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="casdo:LoadingListsPageQuantity" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>количество листов отгрузочных спецификаций или транспортных (перевозочных), коммерческих и (или) иных документов</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="casdo:GoodsQuantity" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Количество (число) декларируемых товаров в декларации на товары</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="casdo:GDCGoodsQuantity" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Количество (число) товаров в корректировке декларации на товары</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="casdo:CargoQuantity" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Общее количество грузовых мест</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="cacdo:DeclarantDetails"/>
+            <xs:element ref="cacdo:GDGoodsShipmentDetails" minOccurs="0"/>
+            <xs:element ref="cacdo:SignatoryRepresentativeDetails" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>сведения о таможенном представителе, заполнившем (подписавшем) декларацию на товары</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="cacdo:SignatoryPersonV2Details" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Сведения о физическом лице, заполнившем (подписавшем) декларацию на товары</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="cacdo:GDCSignatoryRepresentativeDetails" minOccurs="0"/>
+            <xs:element ref="cacdo:GDCSignatoryPersonDetails" minOccurs="0"/>
+            <xs:element ref="casdo:InternalDocId" minOccurs="0"/>
+            <xs:element ref="casdo:SubsoilUserCode" minOccurs="0"/>
+            <xs:element ref="cacdo:DeclarationChangeCodeDetails" minOccurs="0"/>
+            <xs:element ref="cacdo:GoodsReleaseIdDetails" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

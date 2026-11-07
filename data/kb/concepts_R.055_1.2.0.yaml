@@ -1,0 +1,675 @@
+# Каталог понятий для R.055 v1.2.0 (декларация на товары и КДТ).
+#
+# Назначение: связать бизнес-понятия («отправитель», «графа 31», «коды маркировки»)
+# с элементами XML конкретной версии схемы. ИИ выбирает понятие по ключу и не пишет XPath сам.
+#
+# Статус: ЧЕРНОВИК. Пути проверены автоматически по XSD (scripts/build_kb.py),
+# а соответствие графам ДТ подготовлено разработчиком по Решению КТС № 257 и
+# ДОЛЖНО быть подтверждено таможенным экспертом (поле review: pending).
+#
+# Поля:
+#   key       — стабильный идентификатор понятия
+#   title     — название для пользователя
+#   synonyms  — формулировки пользователя (для роутера и поиска)
+#   graphs    — графы ДТ (Решение КТС № 257), строки; "33.2" = подраздел
+#   level     — declaration | shipment | goods
+#   paths     — пути от корня GoodsDeclaration (без него), по локальным именам
+#   kind      — subject | value | code | amount | measure | country | document | group | count
+#   classifier — код классификатора (Решение КТС № 378) или иного справочника, если применим
+#   pitfalls  — особенности, которые нельзя упустить при ответе
+#   review    — pending | approved (кем и когда)
+
+schema: {code: R.055, version: 1.2.0, namespace: "urn:EEC:R:055:GoodsDeclaration:v1.2.0"}
+
+concepts:
+  # ---------- Уровень декларации ----------
+  - key: declaration_kind
+    title: Тип декларации (направление перемещения)
+    synonyms: [тип декларации, импорт или экспорт, ИМ, ЭК, графа 1]
+    graphs: ["1.1"]
+    level: declaration
+    paths: [DeclarationKindCode]
+    kind: code
+    review: pending
+
+  - key: customs_procedure
+    title: Заявляемая таможенная процедура
+    synonyms: [таможенная процедура, процедура, код процедуры, режим, ИМ 40, ИМ 70]
+    graphs: ["1.2", "37"]
+    level: declaration
+    paths: [CustomsProcedureCode]
+    kind: code
+    classifier: "378:customs_procedures"
+    pitfalls:
+      - "На уровне товара процедура детализирована в GDGoodsItemDetails/CustomsProcedureDetails (графа 37): код, предшествующая процедура, особенность."
+    review: pending
+
+  - key: edoc_indicator
+    title: Признак электронного документа
+    synonyms: [ЭД, электронная декларация, графа 1 третий подраздел]
+    graphs: ["1.3"]
+    level: declaration
+    paths: [EDocIndicatorCode]
+    kind: code
+    review: pending
+
+  - key: declaration_reg_number
+    title: Регистрационный номер ДТ
+    synonyms: [номер декларации, регистрационный номер, номер ДТ, графа А]
+    graphs: ["A"]
+    level: declaration
+    paths: [CustomsDeclarationIdDetails]
+    kind: document
+    pitfalls:
+      - "Номер составной: код таможенного органа / дата / номер по журналу. Собирать из трёх дочерних элементов."
+      - "Для ещё не зарегистрированной ДТ элемента нет — это не ошибка."
+    review: pending
+
+  - key: forms_count
+    title: Количество листов (форм)
+    synonyms: [формы, количество листов, графа 3]
+    graphs: ["3"]
+    level: declaration
+    paths: [PageQuantity]
+    kind: count
+    review: pending
+
+  - key: loading_lists
+    title: Отгрузочные спецификации
+    synonyms: [отгрузочные спецификации, графа 4]
+    graphs: ["4"]
+    level: declaration
+    paths: [LoadingListsQuantity, LoadingListsPageQuantity]
+    kind: count
+    review: pending
+
+  - key: goods_quantity_declared
+    title: Заявленное количество товаров (графа 5)
+    synonyms: [всего товаров, графа 5, заявленное количество товаров]
+    graphs: ["5"]
+    level: declaration
+    paths: [GoodsQuantity]
+    kind: count
+    pitfalls:
+      - "Это ЗАЯВЛЕННОЕ число. Фактическое число позиций = количество GDGoodsShipmentDetails/GDGoodsItemDetails. Расхождение — повод для предупреждения, а не молчаливой подмены."
+    review: pending
+
+  - key: cargo_places_total
+    title: Всего грузовых мест (графа 6)
+    synonyms: [грузовые места, всего мест, графа 6]
+    graphs: ["6"]
+    level: declaration
+    paths: [CargoQuantity]
+    kind: count
+    review: pending
+
+  - key: declarant
+    title: Декларант
+    synonyms: [декларант, заявитель, графа 14]
+    graphs: ["14"]
+    level: declaration
+    paths: [DeclarantDetails]
+    kind: subject
+    pitfalls:
+      - "Наименование может быть в SubjectName или SubjectBriefName; идентификаторы зависят от страны (TaxpayerId, CAUniqueCustomsNumberId, BusinessEntityId, PersonId)."
+    review: pending
+
+  - key: customs_representative
+    title: Таможенный представитель
+    synonyms: [таможенный представитель, брокер, графа 54]
+    graphs: ["54"]
+    level: declaration
+    paths: [SignatoryRepresentativeDetails]
+    kind: subject
+    review: pending
+
+  - key: signatory_person
+    title: Лицо, заполнившее (подписавшее) ДТ
+    synonyms: [кто подписал, подписант, специалист по таможенному оформлению, графа 54]
+    graphs: ["54"]
+    level: declaration
+    paths: [SignatoryPersonV2Details]
+    kind: subject
+    review: pending
+
+  - key: subsoil_user
+    title: Признак недропользователя (РК)
+    synonyms: [недропользователь]
+    graphs: []
+    level: declaration
+    paths: [SubsoilUserCode]
+    kind: code
+    pitfalls: ["По таблице 3 Решения № 75 используется в Республике Казахстан."]
+    review: pending
+
+  # ---------- Товарная партия ----------
+  - key: consignor
+    title: Отправитель
+    synonyms: [отправитель, грузоотправитель, экспортёр, продавец, графа 2]
+    graphs: ["2"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/ConsignorDetails]
+    kind: subject
+    pitfalls:
+      - "EqualIndicator означает, что сведения совпадают с другим лицом (например, с декларантом). Тогда реквизиты лица в элементе могут отсутствовать — ответ должен сослаться на это, а не сообщать «не указан»."
+    review: pending
+
+  - key: consignee
+    title: Получатель
+    synonyms: [получатель, грузополучатель, импортёр, покупатель, графа 8]
+    graphs: ["8"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/ConsigneeDetails]
+    kind: subject
+    pitfalls:
+      - "См. EqualIndicator у отправителя — то же правило."
+    review: pending
+
+  - key: financial_settlement_subject
+    title: Лицо, ответственное за финансовое урегулирование
+    synonyms: [финансовое урегулирование, графа 9]
+    graphs: ["9"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/FinancialSettlementSubjectDetails]
+    kind: subject
+    review: pending
+
+  - key: trade_country
+    title: Торгующая страна
+    synonyms: [торгующая страна, графа 11]
+    graphs: ["11"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/TradeCountryDetails]
+    kind: country
+    classifier: "378:countries"
+    review: pending
+
+  - key: total_customs_value
+    title: Общая таможенная стоимость
+    synonyms: [общая таможенная стоимость, графа 12]
+    graphs: ["12"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/TotalCustomsValueAmount, GDGoodsShipmentDetails/CustomsValueAmount]
+    kind: amount
+    pitfalls: ["По таблице 3 TotalCustomsValueAmount используется не во всех государствах-членах."]
+    review: pending
+
+  - key: departure_country
+    title: Страна отправления
+    synonyms: [страна отправления, графа 15]
+    graphs: ["15"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/DepartureCountryDetails]
+    kind: country
+    classifier: "378:countries"
+    review: pending
+
+  - key: origin_country_shipment
+    title: Страна происхождения (по партии)
+    synonyms: [страна происхождения, графа 16]
+    graphs: ["16"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/OriginCountryDetails]
+    kind: country
+    classifier: "378:countries"
+    pitfalls: ["Страна происхождения по товару — отдельное понятие origin_country_item (графа 34). На вопрос «какие страны происхождения» нужно собрать обе."]
+    review: pending
+
+  - key: destination_country
+    title: Страна назначения
+    synonyms: [страна назначения, графа 17]
+    graphs: ["17"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/DestinationCountryDetails]
+    kind: country
+    classifier: "378:countries"
+    review: pending
+
+  - key: departure_transport
+    title: Транспорт при прибытии (отправлении)
+    synonyms: [транспорт при отправлении, транспорт при прибытии, графа 18, графа 26]
+    graphs: ["18", "26"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/GDConsignmentDetails/ArrivalDepartureTransportDetails]
+    kind: group
+    review: pending
+
+  - key: container_indicator
+    title: Признак контейнерной перевозки
+    synonyms: [контейнер, графа 19]
+    graphs: ["19"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/GDConsignmentDetails/ContainerIndicator]
+    kind: code
+    review: pending
+
+  - key: delivery_terms
+    title: Условия поставки
+    synonyms: [условия поставки, инкотермс, incoterms, графа 20]
+    graphs: ["20"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/DeliveryTermsDetails]
+    kind: group
+    classifier: "378:delivery_terms"
+    review: pending
+
+  - key: border_transport
+    title: Транспорт на границе
+    synonyms: [транспорт на границе, активное транспортное средство, графа 21, графа 25]
+    graphs: ["21", "25"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/GDConsignmentDetails/BorderTransportDetails]
+    kind: group
+    classifier: "378:transport_modes"
+    review: pending
+
+  - key: transport_means
+    title: Транспортные средства
+    synonyms: [транспортные средства, количество транспортных средств, машины, вагоны]
+    graphs: ["18", "21"]
+    level: shipment
+    paths:
+      - GDGoodsShipmentDetails/GDConsignmentDetails/BorderTransportDetails/TransportMeansItemDetails
+      - GDGoodsShipmentDetails/GDConsignmentDetails/ArrivalDepartureTransportDetails/TransportMeansItemDetails
+    kind: group
+    pitfalls:
+      - "Есть и заявленное количество (TransportMeansQuantity), и перечень. Отвечать обоими числами и не складывать транспорт на границе с транспортом при отправлении без пояснения — одно и то же ТС может быть в обоих."
+    review: pending
+
+  - key: invoice_amount_currency
+    title: Валюта и общая сумма по счёту
+    synonyms: [валюта, валюта договора, сумма по счёту, фактурная стоимость, графа 22]
+    graphs: ["22"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/CAValueAmount, GDGoodsShipmentDetails/TotalAmount]
+    kind: amount
+    pitfalls: ["Код валюты — атрибут currencyCode у элемента суммы, а не отдельный элемент."]
+    review: pending
+
+  - key: exchange_rate
+    title: Курс валюты
+    synonyms: [курс, курс валюты, графа 23]
+    graphs: ["23"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/ExchangeRate]
+    kind: amount
+    review: pending
+
+  - key: transaction_nature
+    title: Характер сделки
+    synonyms: [характер сделки, графа 24]
+    graphs: ["24"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/TransactionNatureDetails]
+    kind: code
+    classifier: "378:transaction_nature"
+    review: pending
+
+  - key: border_customs_office
+    title: Таможенный орган на границе (въезда/выезда)
+    synonyms: [таможня на границе, орган въезда, орган выезда, графа 29]
+    graphs: ["29"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/GDConsignmentDetails/BorderCustomsOfficeDetails]
+    kind: group
+    review: pending
+
+  - key: goods_location
+    title: Место нахождения товаров
+    synonyms: [место нахождения товаров, где товар, склад временного хранения, СВХ, графа 30]
+    graphs: ["30"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/GoodsLocationDetails]
+    kind: group
+    review: pending
+
+  - key: fact_payments
+    title: Сведения об уплате платежей
+    synonyms: [уплата платежей, платёжки, графа B]
+    graphs: ["B"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/GDFactPaymentDetails]
+    kind: group
+    review: pending
+
+  - key: deferred_payment
+    title: Отсрочка (рассрочка) уплаты
+    synonyms: [отсрочка, рассрочка, графа 48]
+    graphs: ["48"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/DefferedPaymentDetails]
+    kind: group
+    pitfalls: ["Имя элемента в официальной схеме пишется с опечаткой: Deffered (не Deferred). Искать именно так."]
+    review: pending
+
+  - key: payment_guarantee
+    title: Обеспечение уплаты
+    synonyms: [обеспечение, гарантия, графа 52]
+    graphs: ["52"]
+    level: shipment
+    paths: [GDGoodsShipmentDetails/PaymentGuaranteeDetails]
+    kind: group
+    review: pending
+
+  # ---------- Товар ----------
+  - key: goods_item
+    title: Товар (товарная позиция ДТ)
+    synonyms: [товар, товары, товарная позиция, позиция, графа 32]
+    graphs: ["32"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails]
+    kind: group
+    pitfalls:
+      - "«Сколько товаров» = число элементов GDGoodsItemDetails (позиций ДТ). Это НЕ число наименований внутри позиции (GoodsItemGroupDetails/CommodityGroupItemDetails) и НЕ количество единиц (GoodsMeasureDetails)."
+      - "Номер позиции брать из ConsignmentItemOrdinal, а не из порядка в файле; при расхождении — предупреждение."
+    review: pending
+
+  - key: goods_item_number
+    title: Номер товара
+    synonyms: [номер товара, порядковый номер товара, графа 32]
+    graphs: ["32"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/ConsignmentItemOrdinal]
+    kind: count
+    review: pending
+
+  - key: goods_description
+    title: Описание товара
+    synonyms: [наименование товара, описание товара, что за товар, графа 31]
+    graphs: ["31"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/GoodsDescriptionText]
+    kind: value
+    pitfalls: ["Описание может быть разбито на несколько элементов GoodsDescriptionText (до 4) — склеивать по порядку."]
+    review: pending
+
+  - key: goods_groups
+    title: Группы товаров внутри позиции (наименования, производители, артикулы)
+    synonyms: [наименования в позиции, производитель, товарный знак, марка, модель, артикул, графа 31]
+    graphs: ["31"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/GoodsItemGroupDetails]
+    kind: group
+    review: pending
+
+  - key: packages
+    title: Грузовые места, упаковка, поддоны
+    synonyms: [упаковка, грузовые места товара, поддоны, графа 31]
+    graphs: ["31"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/CargoPackagePalletDetails]
+    kind: group
+    classifier: "378:package_kinds"
+    review: pending
+
+  - key: containers
+    title: Контейнеры по товару
+    synonyms: [контейнеры, номера контейнеров, графа 31]
+    graphs: ["31"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/ContainerListDetails]
+    kind: group
+    review: pending
+
+  - key: excise_stamps
+    title: Акцизные или специальные марки
+    synonyms: [акцизные марки, специальные марки, учетно-контрольные марки]
+    graphs: ["31"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/ExciseStampDetails]
+    kind: group
+    pitfalls: ["Акцизные марки — НЕ коды маркировки средствами идентификации. Считать отдельно и не смешивать в ответе «сколько кодов маркировки»."]
+    review: pending
+
+  - key: marking_sign
+    title: Признак товара, подлежащего маркировке
+    synonyms: [подлежит маркировке, признак маркировки, М в графе 33]
+    graphs: ["33"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/CIMSignCode]
+    kind: code
+    pitfalls: ["Значение «М» — товар из перечня маркируемых. Отсутствие признака ≠ нарушение: обязанность зависит от вида товара и даты."]
+    review: pending
+
+  - key: marking_details
+    title: Сведения об идентификации маркированных товаров
+    synonyms: [коды маркировки, маркировка, средства идентификации, КИЗ, честный знак, коды идентификации]
+    graphs: ["31"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/DTIdentificationMeansDetails]
+    kind: group
+    pitfalls:
+      - "Код вида информации (InformationKindCode) различает контрольные (идентификационные) знаки (10) и средства идентификации — от него зависит формат и правила."
+      - "Код хранится не одной строкой, а набором элементов данных (IdentificationMeansDataUnitDetails: AIId + значение). Для сравнения и поиска дублей код нужно собрать из элементов данных по порядку."
+      - "Коды могут быть заданы ПЕРЕЧНЕМ (IdentificationMeansListDetails), ДИАПАЗОНОМ (IdentificationMeansRangeDetails: первый и последний) или АГРЕГИРОВАННЫМ ТАМОЖЕННЫМ ИДЕНТИФИКАТОРОМ (IdentificationMeansCustomsId). Число кодов в диапазоне и за агрегатом НЕ равно числу элементов XML."
+      - "CIMQuantity — заявленное количество знаков/средств идентификации; сверять с подсчитанным."
+      - "CIMMarkingCode = «ПВ» — маркировка после выпуска; тогда перечня кодов может не быть законно."
+      - "Уровень маркировки (AggregationKindCode): код может относиться к упаковке, а не к единице товара."
+    review: pending
+
+  - key: marking_codes_list
+    title: Перечень средств идентификации (отдельные коды)
+    synonyms: [список кодов маркировки]
+    graphs: ["31"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/DTIdentificationMeansDetails/IdentificationMeansDetails/IdentificationMeansListDetails/IdentificationMeansItemDetails]
+    kind: group
+    review: pending
+
+  - key: marking_codes_range
+    title: Диапазоны средств идентификации
+    synonyms: [диапазон кодов маркировки]
+    graphs: ["31"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/DTIdentificationMeansDetails/IdentificationMeansDetails/IdentificationMeansRangeDetails]
+    kind: group
+    review: pending
+
+  - key: marking_aggregated_id
+    title: Агрегированный таможенный идентификатор кодов
+    synonyms: [АТИ, агрегированный таможенный идентификатор]
+    graphs: ["31"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/DTIdentificationMeansDetails/IdentificationMeansDetails/IdentificationMeansCustomsId]
+    kind: value
+    review: pending
+
+  - key: marking_declared_quantity
+    title: Заявленное количество знаков/средств идентификации
+    synonyms: [заявленное количество кодов]
+    graphs: ["31"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/DTIdentificationMeansDetails/CIMQuantity]
+    kind: count
+    review: pending
+
+  - key: traceability
+    title: Прослеживаемость
+    synonyms: [прослеживаемость, П в графе 33]
+    graphs: ["33", "31"]
+    level: goods
+    paths:
+      - GDGoodsShipmentDetails/GDGoodsItemDetails/GoodsTraceabilityCode
+      - GDGoodsShipmentDetails/GDGoodsItemDetails/GoodsTraceabilityMeasureDetails
+    kind: code
+    review: pending
+
+  - key: hs_code
+    title: Код товара по ТН ВЭД ЕАЭС
+    synonyms: [ТН ВЭД, код ТН ВЭД, код товара, графа 33]
+    graphs: ["33.1"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/CommodityCode]
+    kind: code
+    classifier: "tnved_eaeu"
+    pitfalls: ["ТН ВЭД не входит в Решение № 378: проверка по отдельному справочнику (ЕТТ ЕАЭС) с версиями."]
+    review: pending
+
+  - key: origin_country_item
+    title: Страна происхождения товара
+    synonyms: [страна происхождения товара, графа 34]
+    graphs: ["34"]
+    level: goods
+    paths:
+      - GDGoodsShipmentDetails/GDGoodsItemDetails/OriginCountryDetails
+      - GDGoodsShipmentDetails/GDGoodsItemDetails/PrefOriginCountryDetails
+    kind: country
+    classifier: "378:countries"
+    review: pending
+
+  - key: gross_mass
+    title: Вес брутто
+    synonyms: [брутто, вес брутто, масса брутто, графа 35]
+    graphs: ["35"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/UnifiedGrossMassMeasure]
+    kind: measure
+    review: pending
+
+  - key: preference
+    title: Преференции
+    synonyms: [преференция, льготы, графа 36]
+    graphs: ["36"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/PreferenceDetails]
+    kind: code
+    classifier: "378:preferences"
+    review: pending
+
+  - key: item_customs_procedure
+    title: Процедура по товару
+    synonyms: [процедура товара, графа 37]
+    graphs: ["37"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/CustomsProcedureDetails]
+    kind: code
+    classifier: "378:customs_procedures"
+    review: pending
+
+  - key: net_mass
+    title: Вес нетто
+    synonyms: [нетто, вес нетто, масса нетто, графа 38]
+    graphs: ["38"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/UnifiedNetMassMeasure]
+    kind: measure
+    review: pending
+
+  - key: quota
+    title: Квота
+    synonyms: [квота, графа 39]
+    graphs: ["39"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/QuotaDetails]
+    kind: group
+    review: pending
+
+  - key: preceding_documents
+    title: Предшествующие документы
+    synonyms: [предшествующий документ, графа 40]
+    graphs: ["40"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/PrecedingDocDetails]
+    kind: document
+    review: pending
+
+  - key: supplementary_quantity
+    title: Количество в дополнительной единице измерения
+    synonyms: [дополнительная единица, количество товара, штуки, графа 41]
+    graphs: ["41"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/GoodsMeasureDetails]
+    kind: measure
+    pitfalls: ["Это физическое количество товара. Не путать с числом позиций и с числом кодов маркировки."]
+    review: pending
+
+  - key: item_price
+    title: Цена товара
+    synonyms: [цена товара, стоимость товара, фактурная стоимость товара, графа 42]
+    graphs: ["42"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/CAValueAmount]
+    kind: amount
+    review: pending
+
+  - key: valuation_method
+    title: Метод определения таможенной стоимости
+    synonyms: [метод определения таможенной стоимости, графа 43]
+    graphs: ["43"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/ValuationMethodCode]
+    kind: code
+    classifier: "378:valuation_methods"
+    review: pending
+
+  - key: presented_documents
+    title: Представленные документы
+    synonyms: [документы, представленные документы, сведения о документах, инвойс, контракт, сертификат, графа 44]
+    graphs: ["44"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/PresentedDocDetails]
+    kind: document
+    classifier: "378:document_kinds"
+    pitfalls: ["Документы указываются ПО КАЖДОМУ ТОВАРУ. «Сколько документов» — уточнять: всего записей, уникальных документов (вид+номер+дата) или по товарам."]
+    review: pending
+
+  - key: item_customs_value
+    title: Таможенная стоимость товара
+    synonyms: [таможенная стоимость, графа 45]
+    graphs: ["45"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/CustomsValueAmount]
+    kind: amount
+    review: pending
+
+  - key: statistic_value
+    title: Статистическая стоимость
+    synonyms: [статистическая стоимость, графа 46]
+    graphs: ["46"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/StatisticValueAmount]
+    kind: amount
+    review: pending
+
+  - key: payments_calculation
+    title: Исчисление таможенных платежей
+    synonyms: [платежи, пошлина, НДС, акциз, сборы, графа 47]
+    graphs: ["47"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/CustomsPaymentDetails]
+    kind: group
+    classifier: "378:payment_kinds"
+    review: pending
+
+  - key: automobiles
+    title: Сведения об автомобилях
+    synonyms: [автомобиль, VIN, транспортные средства как товар]
+    graphs: ["31"]
+    level: goods
+    paths: [GDGoodsShipmentDetails/GDGoodsItemDetails/DTAutomobileDetails]
+    kind: group
+    review: pending
+
+  # ---------- Национальная обёртка Keden (Казахстан), вне структуры R.055 ----------
+  - key: keden_rate_type
+    title: Применяемые ставки пошлин (ЕТТ или ВТО), Keden
+    synonyms: [ЕТТ, ВТО, ставки ВТО, ставки ЕТТ, единый таможенный тариф, декларация ВТО, декларация ЕТТ, тип ставок, RateType]
+    graphs: []
+    level: declaration
+    paths: [/KedenGoodsDeclaration/RateType]
+    kind: code
+    pitfalls:
+      - "Поле национальной обёртки Keden (Казахстан), а не реквизит R.055: в декларациях других стран его нет."
+      - "ETT — ставки Единого таможенного тарифа ЕАЭС; WTO — ставки по обязательствам Казахстана в ВТО (перечень товаров с пониженными ставками)."
+    review: pending
+
+  - key: keden_customs_office
+    title: Код таможенного органа оформления, Keden
+    synonyms: [таможенный орган Keden, CustomsOfficeCode, пост оформления]
+    graphs: []
+    level: declaration
+    paths: [/KedenGoodsDeclaration/CustomsOfficeCode]
+    kind: code
+    pitfalls:
+      - "Поле национальной обёртки Keden (Казахстан), а не реквизит R.055."
+    review: pending

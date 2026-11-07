@@ -1,0 +1,43 @@
+# Привязка элементов и атрибутов R.055 v1.2.0 к классификаторам Решения КТС № 378.
+#
+# Правило сопоставления: element — локальное имя элемента; within — (необязательно)
+# подстрока пути, ограничивающая контекст; attribute — если код лежит в атрибуте.
+# Статус: ЧЕРНОВИК разработчика, требует подтверждения экспертом.
+#
+# Классификаторы не из Решения № 378 помечены external: проверка по ним пока
+# не выполняется и даёт статус not_implemented (честно, без догадок).
+
+bindings:
+  - {element: CustomsProcedureCode, classifier: customs_procedures}
+  - {element: PreviousCustomsProcedureModeCode, classifier: customs_procedures}
+  - {element: GoodsMoveFeatureCode, classifier: goods_move_features}
+  - {element: DeclarationFeatureCode, classifier: declaration_features}
+  - {element: UnifiedTransportModeCode, classifier: transport_modes}
+  - {element: ValuationMethodCode, classifier: valuation_methods}
+  - {element: CustomsDutyPrefCode, classifier: payment_preferences}
+  - {element: ExcisePrefCode, classifier: payment_preferences}
+  - {element: VATPrefCode, classifier: payment_preferences}
+  - {element: CustomsClearanceChargesPrefCode, classifier: payment_preferences}
+  - {element: DocKindCode, within: /PresentedDocDetails, classifier: document_kinds}
+  - {element: DocKindCode, within: /PrecedingDocDetails, classifier: document_kinds}
+  - {element: CustomsTaxModeCode, classifier: payment_kinds}
+  - {element: CustomsTaxPaymentFeatureCode, classifier: payment_features}
+  - {element: CustomsTaxPaymentMethodCode, classifier: payment_methods}
+  - {element: PackageKindCode, classifier: package_kinds}
+  - {element: DeliveryTermsCode, classifier: delivery_terms}
+  - {element: PaymentGuaranteeMethodCode, classifier: guarantee_methods}
+  - {element: GoodsLocationCode, classifier: goods_locations}
+  - {element: TransportTypeCode, classifier: vehicle_types}
+  - {element: VehicleMakeCode, classifier: vehicle_makes}
+  - {element: ContainerCharacteristicCode, classifier: container_types}
+  - {element: CACountryCode, classifier: countries, allow: ["00"]}
+  - {element: UnifiedCountryCode, classifier: countries, allow: ["00"]}
+  - {element: RegistrationNationalityCode, classifier: countries, allow: ["00"]}
+  - {element: UnifiedCurrencyN3Code, classifier: currencies}
+  - {attribute: currencyCode, classifier: currencies}
+  - {attribute: countryCode, classifier: countries}
+  - {element: CommodityCode, classifier: tnved_eaeu}
+  - {element: CustomsOfficeCode, classifier: customs_offices, external: true}
+  - {element: TransactionNatureCode, classifier: transaction_nature, external: true}
+  - {element: MeasureUnitAbbreviationCode, classifier: units_eaeu_abbr}
+  - {attribute: measurementUnitCode, classifier: units_eaeu}

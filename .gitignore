@@ -1,0 +1,36 @@
+# --- Секреты: никогда не коммитим ---
+.env
+.env.*
+!.env.example
+*.env
+.vercel/
+*.pem
+*.key
+
+# --- Локальные данные сервиса (загруженные XML, базы SQLite, история) ---
+backend/var/
+var/
+*.sqlite3
+*.sqlite3-*
+
+# --- Окружения и сборка ---
+.venv/
+venv/
+node_modules/
+frontend/dist/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- Тяжёлые исходные выгрузки (воспроизводятся загрузчиками) ---
+data/dl_fts/
+data/raw/
+
+# --- Артефакты и инструменты ---
+*.zip
+*.log
+.DS_Store
+.claude/
+.hallmark/

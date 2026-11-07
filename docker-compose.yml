@@ -1,0 +1,45 @@
+name: xmldt
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    image: xmldt-backend:latest
+    # Секреты (XMLDT_OPENAI_API_KEY и т.д.) — только из backend/.env.local, не из образа.
+    # `required: false` требует Docker Compose >= 2.24; на старых версиях создайте пустой файл.
+    env_file:
+      - path: backend/.env.local
+        required: false
+    environment:
+      XMLDT_DATA: /app/data
+      XMLDT_VAR: /var/lib/xmldt
+    volumes:
+      - xmldt_var:/var/lib/xmldt
+    # Для локальной ИИ (Ollama на хосте): host.docker.internal работает и на Linux
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    expose:
+      - "8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/catalog', timeout=4).status == 200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
+
+  web:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    image: xmldt-web:latest
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  xmldt_var:

@@ -1,0 +1,35 @@
+# Корневой контекст сборки (docker-compose.yml). Секреты, кэши и тяжёлые данные не попадают в образы.
+**/.git
+**/.github
+**/.claude
+**/.hallmark
+**/node_modules
+**/.venv
+**/venv
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/.mypy_cache
+**/.ruff_cache
+**/.DS_Store
+**/var
+**/dist
+**/*.log
+
+# Секреты
+**/.env
+**/.env.*
+!**/.env.example
+**/*.env
+
+# Тяжёлые и не нужные в рантайме данные
+data/dl_fts
+data/raw
+**/*.zip
+
+# Прочее
+docs
+backend/tests
+backend/tools
+*.md
+!backend/README.md

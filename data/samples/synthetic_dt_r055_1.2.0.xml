@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- СИНТЕТИЧЕСКИЙ ПРИМЕР. Не является реальной декларацией. -->
+<gd:GoodsDeclaration xmlns:gd="urn:EEC:R:055:GoodsDeclaration:v1.2.0" xmlns:csdo="urn:EEC:M:SimpleDataObjects:v0.4.16" xmlns:ccdo="urn:EEC:M:ComplexDataObjects:v0.4.16" xmlns:casdo="urn:EEC:M:CA:SimpleDataObjects:v1.10.4" xmlns:cacdo="urn:EEC:M:CA:ComplexDataObjects:v1.10.4">
+  <csdo:EDocCode>R.055</csdo:EDocCode>
+  <csdo:EDocId>00000000-0000-0000-0000-000000001234</csdo:EDocId>
+  <csdo:EDocDateTime>2026-11-02T10:15:00+05:00</csdo:EDocDateTime>
+  <casdo:DeclarationKindCode>ИМ</casdo:DeclarationKindCode>
+  <casdo:CustomsProcedureCode codeListId="2006">40</casdo:CustomsProcedureCode>
+  <casdo:EDocIndicatorCode>ЭД</casdo:EDocIndicatorCode>
+  <casdo:GoodsQuantity>3</casdo:GoodsQuantity>
+  <casdo:CargoQuantity>12</casdo:CargoQuantity>
+  <cacdo:DeclarantDetails>
+    <csdo:SubjectName>ТОО «Пример Импорт»</csdo:SubjectName>
+    <csdo:TaxpayerId>123456789013</csdo:TaxpayerId>
+    <ccdo:SubjectAddressDetails>
+      <csdo:AddressKindCode>1</csdo:AddressKindCode>
+      <csdo:UnifiedCountryCode codeListId="2021">KZ</csdo:UnifiedCountryCode>
+      <csdo:CityName>Алматы</csdo:CityName>
+      <csdo:StreetName>ул. Примерная, 1</csdo:StreetName>
+    </ccdo:SubjectAddressDetails>
+  </cacdo:DeclarantDetails>
+  <cacdo:GDGoodsShipmentDetails>
+    <casdo:CAValueAmount currencyCode="USD" currencyCodeListId="2022">15250.00</casdo:CAValueAmount>
+    <cacdo:ConsignorDetails>
+      <csdo:SubjectName>Example Trading Co., Ltd.</csdo:SubjectName>
+      <csdo:TaxpayerId>91310000000000000X</csdo:TaxpayerId>
+      <ccdo:SubjectAddressDetails>
+        <csdo:AddressKindCode>1</csdo:AddressKindCode>
+        <csdo:UnifiedCountryCode codeListId="2021">CN</csdo:UnifiedCountryCode>
+        <csdo:CityName>Шанхай</csdo:CityName>
+        <csdo:StreetName>ул. Примерная, 1</csdo:StreetName>
+      </ccdo:SubjectAddressDetails>
+    </cacdo:ConsignorDetails>
+    <cacdo:ConsigneeDetails>
+      <casdo:EqualIndicator>1</casdo:EqualIndicator>
+    </cacdo:ConsigneeDetails>
+    <cacdo:OriginCountryDetails>
+      <casdo:CACountryCode codeListId="2021">CN</casdo:CACountryCode>
+    </cacdo:OriginCountryDetails>
+    <cacdo:GDGoodsItemDetails>
+      <casdo:ConsignmentItemOrdinal>1</casdo:ConsignmentItemOrdinal>
+      <csdo:CommodityCode>6403999800</csdo:CommodityCode>
+      <casdo:GoodsDescriptionText>Обувь мужская кожаная, 120 пар</casdo:GoodsDescriptionText>
+      <csdo:UnifiedGrossMassMeasure measurementUnitCode="166" measurementUnitCodeListId="2016">180.500</csdo:UnifiedGrossMassMeasure>
+      <csdo:UnifiedNetMassMeasure measurementUnitCode="166" measurementUnitCodeListId="2016">150.000</csdo:UnifiedNetMassMeasure>
+      <casdo:CIMSignCode>М</casdo:CIMSignCode>
+      <cacdo:DTIdentificationMeansDetails>
+        <casdo:InformationKindCode>13</casdo:InformationKindCode>
+        <casdo:CIMQuantity>4</casdo:CIMQuantity>
+        <cacdo:IdentificationMeansDetails>
+          <casdo:AggregationKindCode>1</casdo:AggregationKindCode>
+          <cacdo:IdentificationMeansListDetails>
+            <cacdo:IdentificationMeansItemDetails>
+              <cacdo:IdentificationMeansDataUnitDetails>
+                <casdo:AIId>01</casdo:AIId>
+                <casdo:IdentificationMeansUnitCharacterValueId>04601234567893</casdo:IdentificationMeansUnitCharacterValueId>
+              </cacdo:IdentificationMeansDataUnitDetails>
+              <cacdo:IdentificationMeansDataUnitDetails>
+                <casdo:AIId>21</casdo:AIId>
+                <casdo:IdentificationMeansUnitCharacterValueId>sN7&lt;x01</casdo:IdentificationMeansUnitCharacterValueId>
+              </cacdo:IdentificationMeansDataUnitDetails>
+            </cacdo:IdentificationMeansItemDetails>
+            <cacdo:IdentificationMeansItemDetails>
+              <cacdo:IdentificationMeansDataUnitDetails>
+                <casdo:AIId>01</casdo:AIId>
+                <casdo:IdentificationMeansUnitCharacterValueId>04601234567893</casdo:IdentificationMeansUnitCharacterValueId>
+              </cacdo:IdentificationMeansDataUnitDetails>
+              <cacdo:IdentificationMeansDataUnitDetails>
+                <casdo:AIId>21</casdo:AIId>
+                <casdo:IdentificationMeansUnitCharacterValueId>sN7x02</casdo:IdentificationMeansUnitCharacterValueId>
+              </cacdo:IdentificationMeansDataUnitDetails>
+            </cacdo:IdentificationMeansItemDetails>
+            <cacdo:IdentificationMeansItemDetails>
+              <cacdo:IdentificationMeansDataUnitDetails>
+                <casdo:AIId>01</casdo:AIId>
+                <casdo:IdentificationMeansUnitCharacterValueId>04601234567893</casdo:IdentificationMeansUnitCharacterValueId>
+              </cacdo:IdentificationMeansDataUnitDetails>
+              <cacdo:IdentificationMeansDataUnitDetails>
+                <casdo:AIId>21</casdo:AIId>
+                <casdo:IdentificationMeansUnitCharacterValueId>sN7x03</casdo:IdentificationMeansUnitCharacterValueId>
+              </cacdo:IdentificationMeansDataUnitDetails>
+            </cacdo:IdentificationMeansItemDetails>
+            <cacdo:IdentificationMeansItemDetails>
+              <cacdo:IdentificationMeansDataUnitDetails>
+                <casdo:AIId>01</casdo:AIId>
+                <casdo:IdentificationMeansUnitCharacterValueId>04601234567893</casdo:IdentificationMeansUnitCharacterValueId>
+              </cacdo:IdentificationMeansDataUnitDetails>
+              <cacdo:IdentificationMeansDataUnitDetails>
+                <casdo:AIId>21</casdo:AIId>
+                <casdo:IdentificationMeansUnitCharacterValueId>sN7x02</casdo:IdentificationMeansUnitCharacterValueId>
+              </cacdo:IdentificationMeansDataUnitDetails>
+            </cacdo:IdentificationMeansItemDetails>
+          </cacdo:IdentificationMeansListDetails>
+        </cacdo:IdentificationMeansDetails>
+      </cacdo:DTIdentificationMeansDetails>
+      <cacdo:OriginCountryDetails>
+        <casdo:CACountryCode codeListId="2021">CN</casdo:CACountryCode>
+      </cacdo:OriginCountryDetails>
+      <casdo:CAValueAmount currencyCode="USD" currencyCodeListId="2022">7200.00</casdo:CAValueAmount>
+      <cacdo:PresentedDocDetails>
+        <csdo:DocKindCode codeListId="2009">04021</csdo:DocKindCode>
+        <csdo:DocId>INV-2026-117</csdo:DocId>
+        <csdo:DocCreationDate>2026-10-20</csdo:DocCreationDate>
+      </cacdo:PresentedDocDetails>
+      <cacdo:PresentedDocDetails>
+        <csdo:DocKindCode codeListId="2009">03011</csdo:DocKindCode>
+        <csdo:DocId>CN-KZ-0042</csdo:DocId>
+        <csdo:DocCreationDate>2026-01-15</csdo:DocCreationDate>
+      </cacdo:PresentedDocDetails>
+    </cacdo:GDGoodsItemDetails>
+    <cacdo:GDGoodsItemDetails>
+      <casdo:ConsignmentItemOrdinal>2</casdo:ConsignmentItemOrdinal>
+      <csdo:CommodityCode>8471300000</csdo:CommodityCode>
+      <casdo:GoodsDescriptionText>Ноутбуки портативные, 10 шт.</casdo:GoodsDescriptionText>
+      <csdo:UnifiedGrossMassMeasure measurementUnitCode="166" measurementUnitCodeListId="2016">35.000</csdo:UnifiedGrossMassMeasure>
+      <csdo:UnifiedNetMassMeasure measurementUnitCode="166" measurementUnitCodeListId="2016">28.000</csdo:UnifiedNetMassMeasure>
+      <cacdo:OriginCountryDetails>
+        <casdo:CACountryCode codeListId="2021">CN</casdo:CACountryCode>
+      </cacdo:OriginCountryDetails>
+      <casdo:CAValueAmount currencyCode="USD" currencyCodeListId="2022">6500.00</casdo:CAValueAmount>
+      <cacdo:PresentedDocDetails>
+        <csdo:DocKindCode codeListId="2009">04021</csdo:DocKindCode>
+        <csdo:DocId>INV-2026-117</csdo:DocId>
+        <csdo:DocCreationDate>2026-10-20</csdo:DocCreationDate>
+      </cacdo:PresentedDocDetails>
+      <cacdo:PresentedDocDetails>
+        <csdo:DocKindCode codeListId="2009">03011</csdo:DocKindCode>
+        <csdo:DocId>CN-KZ-0042</csdo:DocId>
+        <csdo:DocCreationDate>2026-01-15</csdo:DocCreationDate>
+      </cacdo:PresentedDocDetails>
+    </cacdo:GDGoodsItemDetails>
+    <cacdo:GDGoodsItemDetails>
+      <casdo:ConsignmentItemOrdinal>3</casdo:ConsignmentItemOrdinal>
+      <csdo:CommodityCode>6110209100</csdo:CommodityCode>
+      <casdo:GoodsDescriptionText>Свитеры трикотажные хлопковые, 300 шт.</casdo:GoodsDescriptionText>
+      <csdo:UnifiedGrossMassMeasure measurementUnitCode="166" measurementUnitCodeListId="2016">95.000</csdo:UnifiedGrossMassMeasure>
+      <csdo:UnifiedNetMassMeasure measurementUnitCode="166" measurementUnitCodeListId="2016">90.000</csdo:UnifiedNetMassMeasure>
+      <casdo:CIMSignCode>М</casdo:CIMSignCode>
+      <cacdo:DTIdentificationMeansDetails>
+        <casdo:InformationKindCode>13</casdo:InformationKindCode>
+        <casdo:CIMQuantity>300</casdo:CIMQuantity>
+        <cacdo:IdentificationMeansDetails>
+          <casdo:AggregationKindCode>1</casdo:AggregationKindCode>
+          <cacdo:IdentificationMeansRangeDetails>
+            <cacdo:FirstIdentificationMeansItemDetails>
+              <cacdo:IdentificationMeansDataUnitDetails>
+                <casdo:AIId>01</casdo:AIId>
+                <casdo:IdentificationMeansUnitCharacterValueId>04601234500001</casdo:IdentificationMeansUnitCharacterValueId>
+              </cacdo:IdentificationMeansDataUnitDetails>
+            </cacdo:FirstIdentificationMeansItemDetails>
+            <cacdo:LastIdentificationMeansItemDetails>
+              <cacdo:IdentificationMeansDataUnitDetails>
+                <casdo:AIId>01</casdo:AIId>
+                <casdo:IdentificationMeansUnitCharacterValueId>04601234500300</casdo:IdentificationMeansUnitCharacterValueId>
+              </cacdo:IdentificationMeansDataUnitDetails>
+            </cacdo:LastIdentificationMeansItemDetails>
+          </cacdo:IdentificationMeansRangeDetails>
+        </cacdo:IdentificationMeansDetails>
+      </cacdo:DTIdentificationMeansDetails>
+      <cacdo:OriginCountryDetails>
+        <casdo:CACountryCode codeListId="2021">CN</casdo:CACountryCode>
+      </cacdo:OriginCountryDetails>
+      <casdo:CAValueAmount currencyCode="USD" currencyCodeListId="2022">1550.00</casdo:CAValueAmount>
+      <cacdo:PresentedDocDetails>
+        <csdo:DocKindCode codeListId="2009">04021</csdo:DocKindCode>
+        <csdo:DocId>INV-2026-117</csdo:DocId>
+        <csdo:DocCreationDate>2026-10-20</csdo:DocCreationDate>
+      </cacdo:PresentedDocDetails>
+      <cacdo:PresentedDocDetails>
+        <csdo:DocKindCode codeListId="2009">03011</csdo:DocKindCode>
+        <csdo:DocId>CN-KZ-0042</csdo:DocId>
+        <csdo:DocCreationDate>2026-01-15</csdo:DocCreationDate>
+      </cacdo:PresentedDocDetails>
+    </cacdo:GDGoodsItemDetails>
+  </cacdo:GDGoodsShipmentDetails>
+</gd:GoodsDeclaration>

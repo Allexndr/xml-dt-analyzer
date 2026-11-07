@@ -1,0 +1,12 @@
+# Применяется, если контекст сборки — каталог frontend/. Основная сборка идёт из корня (см. корневой .dockerignore).
+.git
+node_modules
+dist
+var
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+*.env
+*.zip

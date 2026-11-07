@@ -1,0 +1,83 @@
+{
+ "table_rows": 1085,
+ "exact": 1079,
+ "fuzzy_typos": [
+  {
+   "table": "/GoodsDeclaration/GDGoodsShipmentDetails/GDGoodsItemDetails/DTIdentificationMeansDetails/IdentificationMeansDetails/IdentificationMeansRangeDetails/LastidentificationMeansItemDetails",
+   "xsd": "/GoodsDeclaration/GDGoodsShipmentDetails/GDGoodsItemDetails/DTIdentificationMeansDetails/IdentificationMeansDetails/IdentificationMeansRangeDetails/LastIdentificationMeansItemDetails",
+   "number": "19.18.28.4.3.2"
+  },
+  {
+   "table": "/GoodsDeclaration/GDGoodsShipmentDetails/GDGoodsItemDetails/DTIdentificationMeansDetails/IdentificationMeansDetails/IdentificationMeansRangeDetails/LastidentificationMeansItemDetails/IdentificationMeansKindCode",
+   "xsd": "/GoodsDeclaration/GDGoodsShipmentDetails/GDGoodsItemDetails/DTIdentificationMeansDetails/IdentificationMeansDetails/IdentificationMeansRangeDetails/LastIdentificationMeansItemDetails/IdentificationMeansKindCode",
+   "number": "19.18.28.4.3.2.1"
+  },
+  {
+   "table": "/GoodsDeclaration/GDGoodsShipmentDetails/GDGoodsItemDetails/DTIdentificationMeansDetails/IdentificationMeansDetails/IdentificationMeansRangeDetails/LastidentificationMeansItemDetails/IdentificationMeansDataUnitDetails",
+   "xsd": "/GoodsDeclaration/GDGoodsShipmentDetails/GDGoodsItemDetails/DTIdentificationMeansDetails/IdentificationMeansDetails/IdentificationMeansRangeDetails/LastIdentificationMeansItemDetails/IdentificationMeansDataUnitDetails",
+   "number": "19.18.28.4.3.2.2"
+  },
+  {
+   "table": "/GoodsDeclaration/GDGoodsShipmentDetails/GDGoodsItemDetails/DTIdentificationMeansDetails/IdentificationMeansDetails/IdentificationMeansRangeDetails/LastidentificationMeansItemDetails/IdentificationMeansDataUnitDetails/AIId",
+   "xsd": "/GoodsDeclaration/GDGoodsShipmentDetails/GDGoodsItemDetails/DTIdentificationMeansDetails/IdentificationMeansDetails/IdentificationMeansRangeDetails/LastIdentificationMeansItemDetails/IdentificationMeansDataUnitDetails/AIId",
+   "number": "19.18.28.4.3.2.2.1"
+  },
+  {
+   "table": "/GoodsDeclaration/GDGoodsShipmentDetails/GDGoodsItemDetails/DTIdentificationMeansDetails/IdentificationMeansDetails/IdentificationMeansRangeDetails/LastidentificationMeansItemDetails/IdentificationMeansDataUnitDetails/IdentificationMeansUnitCharacterValueId",
+   "xsd": "/GoodsDeclaration/GDGoodsShipmentDetails/GDGoodsItemDetails/DTIdentificationMeansDetails/IdentificationMeansDetails/IdentificationMeansRangeDetails/LastIdentificationMeansItemDetails/IdentificationMeansDataUnitDetails/IdentificationMeansUnitCharacterValueId",
+   "number": "19.18.28.4.3.2.2.2"
+  },
+  {
+   "table": "/GoodsDeclaration/GDGoodsShipmentDetails/GDGoodsItemDetails/GoodsItemProcessingDetails/RateOfYieIdText",
+   "xsd": "/GoodsDeclaration/GDGoodsShipmentDetails/GDGoodsItemDetails/GoodsItemProcessingDetails/RateOfYieldText",
+   "number": "19.18.37.1"
+  }
+ ],
+ "table_not_in_xsd": [],
+ "xsd_not_in_table": [],
+ "parse_problems": [],
+ "editions_resolved": [
+  {
+   "act": "Решение 26 от 26.03.2024 Коллегии ЕЭК",
+   "from": "None",
+   "to": "None",
+   "fallback": false
+  },
+  {
+   "act": "Решение 90 от 07.10.2025 Коллегии ЕЭК",
+   "from": "2026-10-01",
+   "to": "None",
+   "fallback": false
+  },
+  {
+   "act": "Решение 90 от 07.10.2025 Коллегии ЕЭК",
+   "from": "2026-10-01",
+   "to": "None",
+   "fallback": false
+  },
+  {
+   "act": "Решение 90 от 07.10.2025 Коллегии ЕЭК",
+   "from": "2026-10-01",
+   "to": "None",
+   "fallback": false
+  },
+  {
+   "act": "Решение 90 от 07.10.2025 Коллегии ЕЭК",
+   "from": "2026-04-01",
+   "to": "None",
+   "fallback": false
+  },
+  {
+   "act": "Решение 90 от 07.10.2025 Коллегии ЕЭК",
+   "from": "2026-10-01",
+   "to": "None",
+   "fallback": false
+  },
+  {
+   "act": "Решение 90 от 07.10.2025 Коллегии ЕЭК",
+   "from": "2026-10-01",
+   "to": "None",
+   "fallback": false
+  }
+ ]
+}
